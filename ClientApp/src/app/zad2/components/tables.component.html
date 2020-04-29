@@ -1,0 +1,38 @@
+<style>
+    body{
+        background-color: rgb(192, 192, 192);
+        overflow: hidden;
+    }
+    button{
+        margin: 10px;
+        border-radius: 5px;
+    }
+    .overflow{
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+    .inline{
+        float: left;
+    }
+</style>
+
+<!-- List of available tables -->
+<!-- Component's location: Adjacent to the left border-->
+<!-- Component's content: Component description, list of tables as buttons-->
+
+<!-- Dynamic width and height automatically adjust to client's window size-->
+<body [style.height.px]='innerHeight' [style.width.px]='innerWidth'>
+    <h3>Tables</h3>
+    List of available tables
+
+    <!-- div that holds dynamic list of tables -->
+    <div class="overflow" [style.height.px] = 'innerHeight * 4/5'>
+
+        <!-- iterate through tables and display button to select them -->
+        <div *ngFor='let table of tables'>
+
+            <!-- Select table button -->
+            <button (click)="selectTable(table)" [style.width.px]='innerWidth * 4/5'>{{table.name}}</button>
+        </div>        
+    </div>
+</body>

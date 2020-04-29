@@ -1,0 +1,39 @@
+<style>
+    body {
+        background-color: rgb(228, 228, 228);
+    }
+
+    .inline {
+        float: left;
+    }
+</style>
+
+<!-- Figure calculator component -->
+<!-- Component's location: Center of the screen-->
+<!-- Component's content: figure's name, formatstring template with description,
+        formatstring input box, calculate button, result string
+    OR usage info-->
+
+<!-- Dynamic width and height automatically adjust to client's window size-->
+<body [style.height.px]='innerHeight' [style.width.px]='innerWidth'>
+
+    <!-- IF the figure is selected, load the calculator -->
+    <!-- ELSE load the warning string -->
+    <div *ngIf="selectedFigure; else warningBlock">
+        You selected {{selectedFigure.name}} <br>
+        Insert calculation info using the template: {{selectedFigure.formatstring}} <br>
+        {{selectedFigure.formatstringdesc}}<br>
+
+        <!-- Format string section -->
+        <div class="inline">
+            <!-- Format string input -->
+            <input #formatstring type="text">
+            <!-- Calculate the surface area button -->
+            <button (click)="readFormatstring(formatstring.value)">Test</button>
+        </div>
+        <!-- Print the surface area -->
+        <br><br>{{message}}
+    </div>
+    <!-- (ELSE load the warning string) -->
+    <ng-template #warningBlock>Choose your figure to start calculating</ng-template>
+</body>

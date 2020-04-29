@@ -1,0 +1,25 @@
+<style>
+    body{
+        background-color: rgb(212, 212, 212);
+    }
+
+    button{
+        margin: 10px;
+        border-radius: 5px;
+    }
+</style>
+
+<!-- Figures list -->
+<!-- Component's location: adjacent to the left border-->
+<!-- Component's content: Component description, list of available figures-->
+
+<!-- Dynamic width and height automatically adjust to client's window size-->
+<body [style.height.px]='innerHeight' [style.width.px]='innerWidth'> 
+    <h3>Select figure from the list</h3>
+
+    <!-- Enable iterating through the figures list (seeded from .ts) -->
+    <div *ngFor="let figure of figuresList">
+        <!-- Select the figure button, toggle the selected figure's calculator -->
+        <button (click)="selectFigure(figure)" [style.width.px]='innerWidth * 4/5' >{{figure.name}}</button>
+    </div>
+</body>

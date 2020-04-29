@@ -1,0 +1,24 @@
+<style>
+    body{
+        background-color: rgb(175, 175, 175);
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+</style>
+
+<!-- Scrollable commission details for easy access -->
+<!-- Component's location: Adjacent to the bottom border-->
+<!-- Component's content: Assignment's description, scrollbar-->
+
+<!-- Dynamic width and height automatically adjust to client's window size-->
+<body [style.height.px]='innerHeight' [style.width.px]='innerWidth'>
+    2. Napisać prostą aplikację webową w ASP.NET w języku C# umożliwiającą obsługę przez kelnera zamówień w restauracji.
+    <br>• Aplikacja ma umożliwiać wybór stolika z listy wyboru.
+    <br>• Ma być możliwość dodania zamówienia dla wielu stolików oraz usunięcia zamówienia dla wybranego stolika.
+    <br>• Ma być dostępna lista aktualnie zdefiniowanych zamówień dla stolików z informacją o łącznej kwocie zamówienia dla danego stolika.
+    <br>• Po wybraniu stolika ma być możliwość wyboru różnych dań (z listy wyboru) oraz ilości ich zamówienia przez dany stolik. Ma być widoczna także cena danego dania – jednostkowa oraz łączna za wszystkie zamówione ilości.
+    <br>• Na liście dań dla danego stolika ma być możliwość dodania nowego dania, zmiany zamówionego dania, zmiany ilości zamówienia danego dania, usunięcia danego dania.
+    <br>• Na liście dań dla danego stolika ma być widoczny przycisk ‘Zapłać’, który wyświetli podsumowanie zamówienia danego stolika. Zostaną wyszczególnione wszystkie zamówione dania razem z zamówioną ilością oraz cenami jednostkowymi i łącznymi. Zostanie także dodana pozycja ‘Napiwek 5%’, która zostanie wyliczona i uwzględniona w ogólnym podsumowaniu.
+    <br>• Wszelkie nazwy stolików, dań itp. należy nadać wedle własnego uznania.
+    <br>• Dane NIE mają być zapisywane do bazy. Mają być tylko przechowywane w pamięci (sesji) podczas działania aplikacji.
+</body>

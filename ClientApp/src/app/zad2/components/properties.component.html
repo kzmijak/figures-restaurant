@@ -1,0 +1,138 @@
+<style>
+    body{
+        background-color: rgb(228, 228, 228);
+        overflow: hidden;
+    }
+    .inline{
+        float: left;
+    }
+    .scrollable{
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+</style>
+
+<!-- Interactive receipt creator -->
+<!-- Component's location: Center of the screen-->
+<!-- Component's content: 
+    IF there is no tables selected, nothing
+    IF there is one table selected - table's name, add course button: 
+            adjacent select box for course selection, 
+            2 adjacent input boxes for course price and course amount
+            1 adjacent button for course removal
+            ^ number of iterations increment with each button click    
+        Button for checkout:
+            Receipt summary, total price, apply 5% tip checkbox
+    IF there is more than one table selected:
+        names of selected tables, drop-down courses list, button that adds selected course to all tables,
+        remove course button adjacent to the tables if the selected course already exists in table's courses-->
+
+<!-- Dynamic width and height automatically adjust to client's window size-->
+<body [style.height.px]='innerHeight' [style.width.px]='innerWidth'>
+
+    <!-- IF there is no tables selected, reset the selectedTable variable -->
+    <div *ngIf="selectedTables.length==0"><div *ngIf="regenerateTable()"></div></div>
+    <!--IF there is one one table selected...-->
+    <div *ngIf="selectedTables.length==1">
+        
+        <!-- Call generateTable() method that assigns localStorage selectedTables[0] to selectedTable -->
+        <div *ngIf="generateTable()"></div>
+
+        Selected table: {{selectedTable.name}}
+
+        <!-- Div containing interactive receipt creator -->
+        <div class="scrollable" [style.height.px]="innerHeight*2/3">
+
+            <!-- Iterate through courses of selectedTable -->
+            <div *ngFor="let course of selectedTable.courses; let i=index;">
+                <div class="inline" >
+
+                    <!-- available courses drop-down list that dynamically edits the selected course -->
+                    <select #namebox (change)="editCourse(i, namebox.value, pricebox.value, amountbox.value)">
+                        <option>{{selectedTable.courses[i].name}}</option>
+                        <option *ngFor="let course of courses" [ngValue]="course">
+                            {{course.name}}
+                        </option>
+                    </select>
+
+                    <!-- Textbox containing pricetag of selected course, dynamic course edit -->
+                    <input [style.width.px]="innerWidth/6" #pricebox type="text" placeholder="Price: {{selectedTable.courses[i].price}}$" (change)="editCourse(i, namebox.value, pricebox.value, amountbox.value)">
+                    
+                    <!-- Textbox containing amount of selected course, dynamic course edit -->
+                    <input [style.width.px]="innerWidth/6" #amountbox type="text" placeholder="Amount: {{selectedTable.courses[i].quantity}}" (change)="editCourse(i, namebox.value, pricebox.value, amountbox.value)">
+                    
+                    <!-- Button that calls the method that removes the selected course-->
+                    <button (click)="removeCourse(i)">Remove</button>
+
+                </div>
+            </div>
+
+            <!-- Button that calls for new iteration for courses list -->
+            <button (click)="addCourse()">Add course</button>
+
+        </div>
+
+        <!--Checkout-->
+
+        <div>
+            <!-- Checkout button, appears when ordering a course, hides once clicked -->
+            <button *ngIf="selectedTables[0].courses.length > 0 && !checkout.includes(selectedTable.name)" (click)="addToCheckout()">Checkout</button>
+            
+            <!-- IF the checkout (list of tables with activated checkout button) includes the 
+                selected table-->
+            <!-- THEN show the receipt details -->
+            <div *ngIf="checkout.includes(selectedTable.name)">
+
+                <b>Details</b>
+
+                <!-- Div that contains summary of selected table -->
+                <div [style.height.px]="innerHeight*1/7" class="scrollable">
+
+                    <!--Display name, price, amount and total price of each course in the table-->
+                    <div *ngFor="let course of selectedTables[0].courses">
+                        {{course.name}} (${{course.price}}) x {{course.quantity}} = ${{course.price*course.quantity}}
+                    </div>
+
+                </div>
+
+                <!-- Payment details - total price and include tip checkbox -->
+                <div class="inline">
+
+                    <!-- Checkbox to include 5% tip-->
+                    <input type="checkbox" (change)="toggleTip($event.target.checked)" #checkbox>
+                    Include 5% tip
+
+                    <!-- Total price cut to 2 decimals -->
+                    <br>Total: ${{toPay.toFixed(2)}}   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--IF there is more than one table selected...-->
+    <div *ngIf="selectedTables.length>1"> <div *ngIf="regenerateTable()"></div>
+        
+        Selected tables:
+
+        <!-- Iterate through selectedTables to list selected tables-->
+        <div *ngFor="let table of selectedTables">
+            -{{table.name}}
+
+            <!-- IF course selected withing drop-down courses list exists in the table's courses list-->
+            <!-- THEN show button to cancel the course for this table -->
+            <button (click)='cancelCourse(table)'  *ngIf='isOrdered(table)'>Cancel course</button>
+
+        </div>
+        <div class="inline">
+
+            <!-- Available courses drop-down list -->
+            <select [(ngModel)]="selectedOption" (ngModelChange)="selectCourse($event)">
+                <option *ngFor='let course of courses' [ngValue]="course">{{course.name}}</option>
+            </select>
+
+            <!-- Button that calls a method that adds selected course to all tables -->
+            <button (click)="addCourses()">Add to selected tables</button>
+        </div>
+    </div>
+</body>

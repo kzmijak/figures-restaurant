@@ -1,0 +1,21 @@
+<style>
+    .inline{
+        float: left;
+    }
+</style>
+
+<!-- Components' hub -->
+<body>
+    <div class="inline">
+        <!-- (figureSelectedEvent) emits figure selection trigger
+            to calculator component, with selected figure-->
+        <list-component (figureSelectedEvent)="listcomponent.getFigure($event)"></list-component>
+    </div>
+    <div class="inline">
+        <!-- Receives selection trigger from figures list -->
+        <figure-component #listcomponent></figure-component>
+    </div>
+    <div>
+        <commission-info-1></commission-info-1>
+    </div>
+</body>

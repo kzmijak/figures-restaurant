@@ -1,0 +1,28 @@
+<style>
+    .inline {
+        float: left;
+    }
+</style>
+
+<!-- Components' Hub -->
+<body>
+    <div class="inline">
+        <tables-component 
+        [selectedTablesLS]="selectedTables"
+        [tables]="tables"
+        ></tables-component>
+    </div>
+    <div class="inline">
+        <properties-component 
+        [selectedTables]="selectedTables"
+        [coursesLS]="courses"
+        (mergeTables)="mergeTables()"
+        ></properties-component>
+    </div>
+    <div class="inline">
+        <cheatsheet-component
+        [tables]="tables"
+        ></cheatsheet-component>
+    </div>
+    <commission-info-2></commission-info-2>
+</body>

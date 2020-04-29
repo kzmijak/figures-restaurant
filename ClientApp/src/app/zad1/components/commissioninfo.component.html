@@ -1,0 +1,26 @@
+<style>
+    body{
+        overflow-x: hidden;
+        overflow-y: scroll;
+        background: rgb(184, 184, 184);
+    }
+</style>
+
+<!-- Scrollable commission details for easy access -->
+<!-- Component's location: Adjacent to the bottom border-->
+<!-- Component's content: Assignment's description, scrollbar-->
+
+<!-- Dynamic width and height automatically adjust to client's window size-->
+<body [style.height.px]='innerHeight' [style.width.px]='innerWidth'>
+    Napisać prostą aplikację webową w ASP.NET w języku C# służącą do obliczania pól powierzchni figur płaskich.
+    <br>• Aplikacja ma umożliwiać wybór figury płaskiej z listy wyboru..
+    <br>• Po wybraniu figury płaskiej ma się wyświetlać jedno pole tekstowe, do którego będzie można wpisać wartości niezbędne
+    do obliczenia pola powierzchni.
+    <br>• Nad polem tekstowym ma się wyświetlać opis w jakim formacie mają zostać podane dane, aby zostały odpowiednio
+    zinterpretowane (czasem wystarczy jedna dana, czasem więcej, dlatego musi być podany format w jakim należy podawać dane)
+    <br>• Obok pola tekstowego ma się znajdować przycisk, którego użycie ma obliczać pole powierzchni wybranej figury płaskiej z
+    użyciem wprowadzonych danych
+    <br>• Pod polem tekstowym ma się wyświetlić tekst z wartością wyliczonego pola powierzchni w postaci: Pole powierzchni
+    wybranej figury nazwa_wybranej_figury wynosi: obliczona wartość.
+    <br>• W rozwiązaniu należy zastosować polimorfizm.
+</body>

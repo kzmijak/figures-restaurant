@@ -1,0 +1,31 @@
+<style>
+    body{
+        background-color: rgb(192, 192, 192);
+        overflow: hidden;
+    }
+    .scrollable{
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+</style>
+
+<!-- Tables' orders list for easy access -->
+<!-- Component's location: Adjacent to the right border-->
+<!-- Component's content: Tables' ordered courses list with prices, amounts and total prices, scrollbar-->
+
+<!-- Dynamic width and height automatically adjust to client's window size-->
+<body [style.height.px]='innerHeight' [style.width.px]='innerWidth'>
+    <h3>Cheatsheet</h3>
+    Tables with orders
+
+    <!-- Iterates through tables with assigned orders -->
+    <div class="scrollable" [style.height.px]='innerHeight-90'>
+        <div *ngFor="let table of tablesWithOrders">
+            <b>{{table.name}}</b>
+            <div *ngFor="let course of table.courses">
+                {{course.name}} (${{course.price}}) x {{course.quantity}}
+            </div>
+            Total: ${{toPay(table)}}
+        </div>
+    </div>
+</body>
